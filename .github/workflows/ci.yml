@@ -1,0 +1,31 @@
+name: ci
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+  workflow_dispatch:
+
+jobs:
+  test:
+    runs-on: ${{ matrix.os }}
+    strategy:
+      fail-fast: false
+      matrix:
+        # 3.9 is the floor declared in pyproject.toml and only older images offer it.
+        include:
+          - python-version: "3.9"
+            os: ubuntu-22.04
+          - python-version: "3.11"
+            os: ubuntu-latest
+          - python-version: "3.13"
+            os: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: ${{ matrix.python-version }}
+      - name: Unit tests (offline)
+        run: python -m unittest discover -s tests -v
+      - name: Every claim in this README must hold
+        run: python -m receipts audit . --strict

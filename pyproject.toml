@@ -1,0 +1,28 @@
+[build-system]
+requires = ["setuptools>=61"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "receipts"
+version = "1.0.0"
+description = "Check a README's claims against the repository: test counts, licence, dependencies, Python floor, CI and shipped status."
+readme = "README.md"
+requires-python = ">=3.9"
+license = {text = "MIT"}
+authors = [{name = "Sadok Ayari"}]
+keywords = ["readme", "claims", "audit", "ci", "documentation", "cli"]
+classifiers = [
+    "Programming Language :: Python :: 3",
+    "License :: OSI Approved :: MIT License",
+    "Operating System :: OS Independent",
+    "Topic :: Software Development :: Quality Assurance",
+]
+
+[project.urls]
+Homepage = "https://github.com/sadok-ayari/receipts"
+
+[project.scripts]
+receipts = "receipts.cli:main"
+
+[tool.setuptools]
+packages = ["receipts"]
